@@ -17,7 +17,6 @@ Route::resource('items', '\App\Http\Controllers\ItemController');
 Route::resource('categories', '\App\Http\Controllers\CategoryController');
 });
 
-
 Route::resource('public', '\App\Http\Controllers\PublicController');
 
 Route::get('/', function () {

@@ -76,6 +76,16 @@ class ItemController extends Controller
             $image = Image::make($image);
             Storage::disk('public')->put($location, (string) $image->encode());
             $item->picture = $filename;
+
+            $image->resize(100,100);
+            $location2 ='images/items/' .'tn_'. $filename;
+            Storage::disk('public')->put($location2, (string) $image->encode());
+
+            $image->resize(250,250);
+            $location3 ='images/items/' .'lrg_'. $filename;
+            Storage::disk('public')->put($location3, (string) $image->encode());
+
+
         }
 
         $item->save(); //saves to DB
@@ -148,9 +158,19 @@ class ItemController extends Controller
             $image = Image::make($image);
             Storage::disk('public')->put($location, (string) $image->encode());
 
+            $image->resize(100,100);
+            $location2 ='images/items/' .'tn_'. $filename;
+            Storage::disk('public')->put($location2, (string) $image->encode());
+
+            $image->resize(250,250);
+            $location3 ='images/items/' .'lrg_'. $filename;
+            Storage::disk('public')->put($location3, (string) $image->encode());
+
             if (isset($item->picture)) {
                 $oldFilename = $item->picture;
-                Storage::delete('public/images/items/'.$oldFilename);                
+                Storage::delete('public/images/items/'.$oldFilename);
+                Storage::delete('public/images/items/'. 'tn_'. $oldFilename);
+                Storage::delete('public/images/items/'. 'lrg_'. $oldFilename);                 
             }
 
             $item->picture = $filename;
@@ -176,7 +196,9 @@ class ItemController extends Controller
         $item = Item::find($id);
         if (isset($item->picture)) {
             $oldFilename = $item->picture;
-            Storage::delete('public/images/items/'.$oldFilename);                
+            Storage::delete('public/images/items/'.$oldFilename);
+            Storage::delete('public/images/items/'. 'tn_'. $oldFilename);
+            Storage::delete('public/images/items/'. 'lrg_'. $oldFilename);                  
         }
         $item->delete();
 

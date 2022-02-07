@@ -47,10 +47,10 @@ Laravel Project
 				@if($i == 3)
 					<tr>
 				@endif
-				<td><center><img src="{{ Storage::url('images/items/'.$item->picture) }}" style='height:100px;' > <br>
+				<td><center><img src="{{ Storage::url('images/items/'.'tn_'.$item->picture) }}" > <br>
 				{{$item->title }} <br>
 				<p>Price: {{$item->price }} CAD.<p> 
-				<button> Buy Now</button> </center></td>	
+					<a href="{{ route('public.edit', $item->id) }}" class="btn btn-primary ">Buy Now</a> </center></td>	
 				@if($i == 2)
 					@php ($i=0)
 					</tr>

@@ -26,6 +26,14 @@ class PublicController extends Controller
         return view('public.index')->with('categories',$categories)->with('items', $items);
     }
 
+    public function edit($id)
+    {   
+        $item = Item::find($id);
+
+        return view('public.singleItem')->with('item', $item);
+    }
+
+
     public function show($id)
     {
 
@@ -35,5 +43,7 @@ class PublicController extends Controller
         
         return view('public.index')->with('categories',$categories)->with('items', $items);
     }
+
+    
 
 }

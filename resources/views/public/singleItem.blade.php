@@ -1,4 +1,4 @@
-@extends('common') 
+@extends('common_public') 
 
 @section('pagetitle')
 Products

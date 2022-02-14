@@ -58,6 +58,7 @@ class PublicController extends Controller
         $shop_item->quantity_of_1 = 1;        
 
         $shop_items = shopping_cart::orderBy('id','ASC')->where('session_id','=',$session_id)->paginate(100);
+        $items = Item::orderBy('title','ASC')->paginate(100);
 
         $flag=true;
         foreach($shop_items as $single_item){
@@ -70,23 +71,63 @@ class PublicController extends Controller
             $shop_item->save();
         }    	 	
 
-        //declare again to fix refresh page bug
         $shop_items = shopping_cart::orderBy('id','ASC')->where('session_id','=',$session_id)->paginate(100);
-
         $items = Item::orderBy('title','ASC')->paginate(100);
 
         return view('public.shoppingCart')->with('shop_items',$shop_items)->with('items', $items);
     }
 
+    public function update_cart(Request $request, $id)
+    {   
+        $session_id = Session::get('session_id');
+        Session::forget('error');
+
+        $shop_item = shopping_cart::find($id);
+        $shop_item->quantity_of_1 = $request->quantity_of_1;
+
+        $shop_items = shopping_cart::orderBy('id','ASC')->where('session_id','=',$session_id)->paginate(100);
+        $items = Item::orderBy('title','ASC')->paginate(100);
+        
+        foreach($items as $item){
+            if($shop_item->item_id == $item->id){
+                if($shop_item->quantity_of_1>$item->quantity){
+                    Session::flash('error','Not enough items in stock!');
+                    return view('public.shoppingCart')->with('shop_items',$shop_items)->with('items', $items);
+                }else{
+                    Session::flash('success','Cart updated successfully');
+                }
+            }
+        }
+        //if item quantity is 0 then delete
+        if ($shop_item->quantity_of_1 <= 0){
+            $shop_item->delete();
+        }else{    
+            $shop_item->save();
+        }
+        
+
+        $shop_items = shopping_cart::orderBy('id','ASC')->where('session_id','=',$session_id)->paginate(100);
+        $items = Item::orderBy('title','ASC')->paginate(100);
+        
+        return redirect()->route('public.shopping_store',$id)->with('shop_items',$shop_items)->with('items', $items);
+    }
+
+    public function remove_item($id)
+    {   
+        $session_id = Session::get('session_id');
+        
+        $shop_item = shopping_cart::find($id);
+        $shop_item->delete();
+        
+        $shop_items = shopping_cart::orderBy('id','ASC')->where('session_id','=',$session_id)->paginate(100);
+        $items = Item::orderBy('title','ASC')->paginate(100);
+        
+        return redirect()->route('public.shopping_store',$id)->with('shop_items',$shop_items)->with('items', $items);
+    }
+
     public function edit($id)
     {   
-        
-        $session_id = Session::get('session_id');
-        $ip_address = Session::get('ip_address');
-
-        $item = Item::find($id);
-
-        return view('public.singleItem')->with('item', $item)->with('session_id',$session_id)->with('ip_address', $ip_address);
+        return view('public.singleItem');
     }
 
 
@@ -108,13 +149,6 @@ class PublicController extends Controller
         $ip_address = Session::get('ip_address');
 
         dd ($request);
-        //$shop_item = new shopping_cart;
-        //$shop_item->item_id = $request->id;
-        //$shop_item->session_id = $session_id;
-        //$shop_item->ip_address = $ip_address;
-        //$shop_item->quantity_of_1 = 1;        
-
-        //$shop_item->save();
 
         return view('public.shoppingCart')->with('session_id',$session_id)->with('ip_address', $ip_address);
     }    

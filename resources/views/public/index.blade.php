@@ -40,7 +40,9 @@ Laravel Project
 <div class="col-md-8">
 	<table class="table">
 		<tbody>
+			
 			<tr>
+
 				@php ($i=0)
 		@foreach ($items as $item)
 				
@@ -50,7 +52,7 @@ Laravel Project
 				<td><center><img src="{{ Storage::url('images/items/'.'tn_'.$item->picture) }}" > <br>
 				{{$item->title }} <br>
 				<p>Price: {{$item->price }} CAD.<p> 
-					<a href="{{ route('public.edit', $item->id) }}" class="btn btn-primary ">Buy Now</a> </center></td>	
+					<a href="{{ route('public.single', $item->id) }}" class="btn btn-primary ">Buy Now</a> </center></td>	
 				@if($i == 2)
 					@php ($i=0)
 					</tr>

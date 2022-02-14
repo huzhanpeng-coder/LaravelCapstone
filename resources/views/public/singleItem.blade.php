@@ -16,14 +16,14 @@ Laravel Project
 	</div>
 	
 	<div class="col-md-12">
-		<hr />
-		<td><center><img src="{{ Storage::url('images/items/'.'lrg_'.$item->picture) }}" > <br>
+		<center><img src="{{ Storage::url('images/items/'.'lrg_'.$item->picture) }}" > <br>
 			Title: {{$item->title }} <br>
 			<p>Product ID: {{$item->id }}</p>
 			Description: {!! html_entity_decode($item->description) !!}<br><br>
 			<p>Price: {{$item->price }} CAD.<p>
 			<p>Quantity: {{$item->quantity }} units available.<p>
-			<p>SKU: {{$item->sku }}<p>	
+			<p>SKU: {{$item->sku }}<br><p>
+				<a href="{{ route('public.shopping_store', $item->id) }}" class="btn btn-success btn-sm">Add to cart</a></div><div style='float:left;'>			
 	</div>
 </div>
 

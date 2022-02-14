@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,7 +18,10 @@ Route::resource('items', '\App\Http\Controllers\ItemController');
 Route::resource('categories', '\App\Http\Controllers\CategoryController');
 });
 
+Route::get('/public/{id}/single', 'App\Http\Controllers\PublicController@single')->name('public.single');
+Route::get('/public/{id}/shopping_store', 'App\Http\Controllers\PublicController@shopping_store')->name('public.shopping_store');
 Route::resource('public', '\App\Http\Controllers\PublicController');
+
 
 Route::get('/', function () {
     return view('welcome');

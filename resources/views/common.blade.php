@@ -38,7 +38,9 @@
             <li class="{{ (Request::is('/')) ? "active" : "" }}"><a href="/">Home</a></li>
             <li class="{{ Request::is('categories/*') || Request::is('categories') ? "active" : "" }}"><a href="/categories">Categories</a></li>
             <li class="{{ Request::is('items/*') || Request::is('items') ? "active" : "" }}"><a href="/items">Items</a></li>
-            <li class="{{ Request::is('public/*') || Request::is('public') ? "active" : "" }}"><a href="/public">Public</a></li>
+            <li class="{{ (Request::is('public/*') || Request::is('public')) && (Request::is('public/view_orders') == false) ? "active" : "" }}"><a href="/public">Public</a></li>
+            <li class="{{ (Request::is('public/view_orders')) ? "active" : "" }}"><a href="/public/view_orders">View Orders</a></li>
+            
           </ul>
           <ul class="nav navbar-nav navbar-right">
           </ul>

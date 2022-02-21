@@ -78,6 +78,100 @@ Laravel Project
 		
 	</div>
 
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2">
+			<h5 class="text-primary" style="text-align: center;">
+				Customer Information
+			</h5>
+		</div>
+	</div>
+
+	<div style="margin:0px auto;width:600px" class="container">
+		<div class="row">
+			{!! Form::open(['route' => ['public.check_order',session('session_id') ], 'data-parsley-validate' => '', 
+			                'files' => true]) !!}
+			<div class="col-md-8">
+				<div class="form-group" id="first-name-group">
+					{!! Form::label('firstName', 'First Name:') !!}
+					{!! Form::text('first_name', null, [
+						'class'                         => 'form-control',
+						'required'                      => 'required',
+						'placeholder'                   => 'First Name',
+						'data-parsley-required-message' => 'First name is required',
+						'data-parsley-trigger'          => 'change focusout',
+						'data-parsley-errors-container="#errorMessage1"',
+						]) !!}
+				</div>
+			</div>
+			<div class="col-md-4" id="errorMessage1"></div>
+		
+			<div class="col-md-8">
+				<div class="form-group" id="last-name-group">
+					{!! Form::label('lastName', 'Last Name:') !!}
+					{!! Form::text('last_name', null, [
+						'class'                         => 'form-control',
+						'required'                      => 'required',
+						'placeholder'                   => 'Last Name',
+						'data-parsley-required-message' => 'Last name is required',
+						'data-parsley-trigger'          => 'change focusout',
+						'data-parsley-errors-container="#errorMessage2"',
+						]) !!}
+				</div>
+			</div>
+			<div class="col-md-4" id="errorMessage2"></div>
+			
+			<div class="col-md-8">
+				<div class="form-group" id="email-group">
+					{!! Form::label('email', 'Email address:') !!}
+					{!! Form::email('email', null, [
+						'class' => 'form-control',
+						'placeholder'                   => 'email@example.com',
+						'required'                      => 'required',
+						'data-parsley-required-message' => 'Email name is required',
+						'data-parsley-trigger'          => 'change focusout',
+						'data-parsley-errors-container="#errorMessage3"',
+						]) !!}
+				</div>
+			</div>
+			<div class="col-md-4" id="errorMessage3"></div>
+			
+			<div class="col-md-8">
+				<div class="form-group" id="phone-group">
+					{!! Form::label('phone', 'Phone Number:') !!}
+					{!! Form::text('phone', null, [
+						'class' => 'form-control',
+						'placeholder'                   => '780-888-8888',
+						'required'                      => 'required',
+						'data-parsley-required-message' => 'Number name is required',
+						'data-parsley-trigger'          => 'change focusout',
+						'data-parsley-minlength'        => '10',
+						'data-parsley-errors-container="#errorMessage4"',
+						]) !!}
+				</div>
+			</div>
+			<div class="col-md-4" id="errorMessage4"></div>
+			
+			<div class="col-md-8">
+				<div class="form-group">
+					{!! Form::submit('Submit Order', ['class' => 'btn btn-primary btn-order', 'id' => 'submitBtn', 'style' => 'margin-bottom: 10px;']) !!}
+				</div>
+			</div>
+			{!! Form::close() !!}
+		</div>
+	</div>
+	<!-- PARSLEY -->
+	<script>
+		window.ParsleyConfig = {
+			errorsWrapper: '<div></div>',
+			errorTemplate: '<div class="alert alert-danger parsley" role="alert"></div>',
+			errorClass: 'has-error',
+			successClass: 'has-success'
+		};
+	</script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="http://parsleyjs.org/dist/parsley.js"></script>
+
+
 </div>
 
 

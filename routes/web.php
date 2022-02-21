@@ -14,8 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::group(['middleware' => 'auth'], function () {
-Route::resource('items', '\App\Http\Controllers\ItemController');
-Route::resource('categories', '\App\Http\Controllers\CategoryController');
+    Route::get('/public/view_orders', 'App\Http\Controllers\PublicController@view_orders')->name('public.view_orders');
+    Route::get('/public/{id}/check_receipt', 'App\Http\Controllers\PublicController@check_receipt')->name('public.check_receipt');
+    
+    Route::resource('items', '\App\Http\Controllers\ItemController');
+    Route::resource('categories', '\App\Http\Controllers\CategoryController');
 });
 
 Route::get('/public/{id}/single', 'App\Http\Controllers\PublicController@single')->name('public.single');
@@ -28,6 +31,10 @@ Route::patch('/public/{id}/update_cart', 'App\Http\Controllers\PublicController@
 Route::get('/public/{id}/remove_item', 'App\Http\Controllers\PublicController@remove_item')->name('public.remove_item');
 Route::delete('/public/{id}/remove_item', 'App\Http\Controllers\PublicController@remove_item')->name('public.remove_item');
 Route::get('/public/{id}/shopping_store', 'App\Http\Controllers\PublicController@shopping_store')->name('public.shopping_store');
+
+Route::post('/public/check_order', 'App\Http\Controllers\PublicController@check_order')->name('public.check_order');
+
+
 
 Route::resource('public', '\App\Http\Controllers\PublicController');
 
